@@ -1,19 +1,35 @@
-const { program } = require('commander');
+const { BooleanPrompt, Select, Input } = require('enquirer');
 const { decode, encode } = require("./base64");
 const { encrypt } = require('./md5');
-program
-  .command('base64')
-  .option('-d, --decode')
-  .argument('<value>', 'string to decode/encode')
-  .action((value, options) => {
-    console.log(options.decode ? decode(value) : encode(value))
-  })
-// action 的参数顺序， 【arg0,arg1,,,option:{}】, option args
+
+const promptAction = new Select({
+  name: 'actions',
+  message: 'Pick a algorithm',
+  choices: ['base64', 'md5']
+});
 
 
-program.command('md5')
-  .argument('<val>', 'string to encrypt').action((value) => {
-    console.log(encrypt(value))
-  });
+const  promptBase64Decode = new BooleanPrompt({
+  message:  'Is base64 Decode? (y/N)'
+});
 
-program.parse();
+const  promptInput = new Input({
+  message: 'What is your value?',
+  initial: 'hello word'
+});
+
+const app = async() => {
+ const action = await promptAction.run();
+ const value = await promptInput.run();
+
+ 
+ if(action === "base64") {
+  const isBase64Decode = await promptBase64Decode.run();
+  console.log(isBase64Decode ? decode(value) : encode(value));
+ }
+ if(action === "md5") {
+  console.log(encrypt(value));
+ }
+}
+
+app();

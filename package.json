@@ -5,6 +5,7 @@
   "repository": "git@github.com:mjx20045912/node-cmd-demo.git",
   "license": "MIT",
   "dependencies": {
-    "commander": "^9.2.0"
+    "commander": "^9.2.0",
+    "enquirer": "^2.3.6"
   }
 }
