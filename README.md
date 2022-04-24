@@ -1,5 +1,5 @@
 # node-cmd-demo
-this is an example of node command line application
+this is an example of node command line application. Forked and edited by Shen Liao.
 
 ## Libs
 
